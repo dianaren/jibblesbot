@@ -11,7 +11,7 @@ module.exports = {
 	execute(message, args) {
     let stuffBought = args[0];
     if (!stuff[stuffBought]) {
-      message.reply(`Congrats on your new ${stuffBought} but I'm not tracking that yet!`);
+      message.reply(`congrats on your new ${stuffBought} but I'm not tracking that yet!`);
     } else {
       // TODO: retrieve a real value indexed by stuffBought
       let fakeCounter = 0;
