@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const client = new Discord.Client();
+let daysSinceSkisBought = 0;
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -16,7 +17,8 @@ client.on('message', message => {
 
   switch (command) {
     case 'buyskis':
-      message.channel.send('bought skis!');
+      daysSinceSkisBought = 0;
+      message.channel.setTopic(daysSinceSkisBought + ' day(s) since skis have been bought! Last one to buy skis: ' + message.author)
       break;
     default:
       break;
