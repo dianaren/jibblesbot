@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'buy',
-	description: 'Buy stuff!',
+	name: 'bought',
+	description: 'Just bought stuff!',
   args: 1,
   usage: '<stuff>',
 	execute(message, args) {
