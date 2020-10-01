@@ -1,6 +1,8 @@
 module.exports = {
-	name: 'buyskis',
-	description: 'Buy skis!',
+	name: 'buy',
+	description: 'Buy stuff!',
+  args: 1,
+  usage: '<stuff>',
 	execute(message, args) {
       let daysSinceSkisBought = 0;
       message.channel.setTopic(`${daysSinceSkisBought} day(s) since skis have been bought! Last one to buy skis: ${message.author.username}`)

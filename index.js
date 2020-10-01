@@ -8,12 +8,12 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
 }
 
 client.once('ready', () => {
-	console.log('Ready!');
+  console.log('Ready!');
 });
 
 client.login(process.env.TOKEN);
@@ -21,10 +21,24 @@ client.login(process.env.TOKEN);
 client.on('message', message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
+  const commandName = args.shift().toLowerCase();
+  if (!client.commands.has(commandName)) message.reply('Command not found!');
+  // TODO: print valid commands
+  const command = client.commands.get(commandName);
+
+  if (command.args && args.length != command.args) {
+    let reply = `Incorrect number of arguments. Expected ${command.args}; received ${args.length}`;
+
+    if (command.usage) {
+      reply += `\nUsage: \`${prefix} ${command.name} ${command.usage}\``;
+    }
+
+    return message.channel.send(reply);
+  }
+
   try {
-    client.commands.get(command).execute(message, args);
+    command.execute(message, args);
   } catch (error) {
     console.error(error);
     message.reply('there was an error trying to execute that command!');
