@@ -1,7 +1,16 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
+
 const client = new Discord.Client();
-let daysSinceSkisBought = 0;
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -14,14 +23,10 @@ client.on('message', message => {
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
-
-  switch (command) {
-    case 'buyskis':
-      daysSinceSkisBought = 0;
-      message.channel.setTopic(`${daysSinceSkisBought} day(s) since skis have been bought! Last one to buy skis: ${message.author.username}`)
-        .then(updated => message.channel.send(`SPENT IT! ${message.author.username} bought skis! The channel topic has been updated.`));
-      break;
-    default:
-      break;
+  try {
+    client.commands.get(command).execute(message, args);
+  } catch (error) {
+    console.error(error);
+    message.reply('there was an error trying to execute that command!');
   }
 });
