@@ -18,7 +18,8 @@ client.on('message', message => {
   switch (command) {
     case 'buyskis':
       daysSinceSkisBought = 0;
-      message.channel.setTopic(daysSinceSkisBought + ' day(s) since skis have been bought! Last one to buy skis: ' + message.author.username)
+      message.channel.setTopic(`${daysSinceSkisBought} day(s) since skis have been bought! Last one to buy skis: ${message.author.username}`)
+        .then(updated => message.channel.send(`SPENT IT! ${message.author.username} bought skis! The channel topic has been updated.`));
       break;
     default:
       break;
