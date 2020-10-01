@@ -8,5 +8,7 @@ client.once('ready', () => {
 client.login(process.env.TOKEN);
 
 client.on('message', message => {
-	console.log(message.content);
+  if (message.content === '!jibblesbot buyskis') {
+    message.channel.send('bought skis!');
+  }
 });
