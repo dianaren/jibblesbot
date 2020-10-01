@@ -23,8 +23,12 @@ client.on('message', message => {
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
-  if (!client.commands.has(commandName)) message.reply('Command not found!');
-  // TODO: print valid commands
+  if (!client.commands.has(commandName)) {
+    message.reply('Command not found!');
+    return;
+    // TODO: print valid commands
+  }
+
   const command = client.commands.get(commandName);
 
   if (command.args && args.length != command.args) {
