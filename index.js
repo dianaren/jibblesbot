@@ -31,7 +31,7 @@ client.on('message', message => {
   const command = client.commands.get(commandName);
 
   if (command.args && args.length != command.args) {
-    let reply = `Incorrect number of arguments. Expected ${command.args}; received ${args.length}`;
+    let reply = `incorrect number of arguments. Expected ${command.args}; received ${args.length}`;
 
     if (command.usage) {
       reply += `\nUsage: \`${prefix} ${command.name} ${command.usage}\``;
