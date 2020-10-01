@@ -6,3 +6,7 @@ client.once('ready', () => {
 });
 
 client.login(process.env.TOKEN);
+
+client.on('message', message => {
+	console.log(message.content);
+});
