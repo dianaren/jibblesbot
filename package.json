@@ -1,0 +1,23 @@
+{
+  "name": "jibblesbot",
+  "version": "1.0.0",
+  "description": "A bot for jibbles and jibbles-wannabes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dianaren/jibblesbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dianaren/jibblesbot/issues"
+  },
+  "homepage": "https://github.com/dianaren/jibblesbot#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
