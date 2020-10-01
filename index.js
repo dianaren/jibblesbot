@@ -18,7 +18,7 @@ client.on('message', message => {
   switch (command) {
     case 'buyskis':
       daysSinceSkisBought = 0;
-      message.channel.setTopic(daysSinceSkisBought + ' day(s) since skis have been bought! Last one to buy skis: ' + message.author)
+      message.channel.setTopic(daysSinceSkisBought + ' day(s) since skis have been bought! Last one to buy skis: ' + message.author.username)
       break;
     default:
       break;
