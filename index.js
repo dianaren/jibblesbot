@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 
 const { prefix, mongoConnectionString } = require('./config.json');
-mongoConnectionString = mongoConnectionString.replace('%%PASSWORD%%', env.MONGODB_PW)
+mongoConnectionString = mongoConnectionString.replace('%%PASSWORD%%', process.env.MONGODB_PW)
 const mongo = new MongoClient(mongoConnectionString, { useNewUrlParser: true });
 
 const discord = new Discord.Client();
