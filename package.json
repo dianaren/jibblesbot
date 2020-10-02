@@ -4,11 +4,10 @@
   "description": "A bot for jibbles and jibbles-wannabes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test jest",
     "start": "node index.js",
     "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "test": "NODE_ENV=test jest"
+    "lint-fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -24,7 +23,8 @@
   "dependencies": {
     "discord.js": "^12.3.1",
     "eslint": "^7.10.0",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "mongodb": "^3.6.2"
   },
   "engines": {
     "node": "~14.12.0",
