@@ -23,11 +23,11 @@ async function updateGlobalStats(username, collection) {
   const query = { globalStats: { $exists: true } };
   const update = {
     $set: {
-      globalStats.lastPurchasedBy: username,
-      globalStats.daysSincePurchased: 0
+      'globalStats.lastPurchasedBy': username,
+      'globalStats.daysSincePurchased': 0
     },
     $inc: {
-      globalStats.totalPurchased: 1
+      'globalStats.totalPurchased': 1
     }
   };
   await collection.updateOne(query, update, { upsert: true });
