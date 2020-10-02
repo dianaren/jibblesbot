@@ -48,11 +48,11 @@ function handleMessage(message) {
 
 discord.once('ready', () => {
   try {
-    await mongo.connect();
-    await mongo.db("default").command({ ping: 1 });
+    mongo.connect();
+    mongo.db("default").command({ ping: 1 });
     console.log("Connected successfully to mongo");
   } finally {
-    await mongo.close();
+    mongo.close();
   }
   console.log('Ready!');
 });
