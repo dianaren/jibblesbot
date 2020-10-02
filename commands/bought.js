@@ -10,7 +10,8 @@ async function addNewPurchase(user, collection) {
   const update = {
     $set: {
       uuid: uuid,
-      user: user,
+      'user.id': user.id,
+      'user.username': user.username,
     },
     $currentDate: {
         purchaseTime: true,
@@ -23,7 +24,8 @@ async function updateGlobalStats(user, collection) {
   const query = { globalStats: { $exists: true } };
   const update = {
     $set: {
-      'globalStats.lastPurchasedBy': user,
+      'globalStats.lastPurchasedBy.id': user.id,
+      'globalStats.lastPurchasedBy.username': user.username,
       'globalStats.daysSincePurchased': 0
     },
     $inc: {
