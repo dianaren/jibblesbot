@@ -13,28 +13,21 @@ async function addNewPurchase(username, collection) {
       username: username,
     },
     $currentDate: {
-        lastModified: true,
-        'purchaseTime': { $type: 'timestamp' }
+        purchaseTime: true,
      }
   };
   await collection.updateOne({ uuid: uuid }, update, { upsert: true });
 }
 
-async function updateLastPurchasedBy(username, collection) {
-  const query = { lastPurchasedBy: { $exists: true } };
+async function updateGlobalStats(username, collection) {
+  const query = { globalStats: { $exists: true } };
   const update = {
     $set: {
-      lastPurchasedBy: username
-    }
-  };
-  await collection.updateOne(query, update, { upsert: true });
-}
-
-async function updateTotalPurchased(collection) {
-  const query = { totalPurchased: { $exists: true } };
-  const update = {
+      globalStats.lastPurchasedBy: username,
+      globalStats.daysSincePurchased: 0
+    },
     $inc: {
-      totalPurchased: 1
+      globalStats.totalPurchased: 1
     }
   };
   await collection.updateOne(query, update, { upsert: true });
@@ -43,8 +36,7 @@ async function updateTotalPurchased(collection) {
 function updateMongoPurchases(stuffBought, username, mongo) {
   const collection = mongo.db('default').collection(stuffBought);
   addNewPurchase(username, collection);
-  updateLastPurchasedBy(username, collection);
-  //updateTotalPurchased(collection);
+  updateGlobalStats(username, collection);
 }
 
 module.exports = {
@@ -59,8 +51,7 @@ module.exports = {
     } else {
       // TODO: retrieve a real value indexed by stuffBought
       updateMongoPurchases(stuffBought, message.author.username, mongo);
-      let fakeCounter = 0;
-      message.channel.setTopic(`${fakeCounter} day(s) since ${stuffBought} ${buyableStuff[stuffBought]} been bought! Last one to buy ${stuffBought}: ${message.author.username}`)
+      message.channel.setTopic(`0 day(s) since ${stuffBought} ${buyableStuff[stuffBought]} been bought! Last one to buy ${stuffBought}: ${message.author.username}`)
         .then(updated => message.channel.send(`SPENT IT! ${message.author.username} bought skis! The channel topic has been updated.`));
     }
 	},
