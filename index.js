@@ -39,25 +39,26 @@ function handleMessage(message) {
   }
 
   try {
-    command.execute(message, args);
+    command.execute(message, args, mongo);
   } catch (error) {
     console.error(error);
     message.reply('there was an error trying to execute that command!');
   }
 }
 
-async function mongoTest() {
+async function mongoInit() {
   try {
     await mongo.connect();
     await mongo.db("default").command({ ping: 1 });
     console.log("Connected successfully to mongo");
-  } finally {
+  } catch {
+    console.log("Mongo connection unsuccessful");
     await mongo.close();
   }
 }
 
 discord.once('ready', () => {
-  mongoTest();
+  mongoInit();
   console.log('Ready!');
 });
 
