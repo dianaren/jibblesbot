@@ -43,7 +43,7 @@ async function updateTotalPurchased(collection) {
 function updateMongoPurchases(stuffBought, username, mongo) {
   const collection = mongo.db('default').collection(stuffBought);
   addNewPurchase(username, collection);
-  //updateLastPurchasedBy(username, collection);
+  updateLastPurchasedBy(username, collection);
   //updateTotalPurchased(collection);
 }
 
