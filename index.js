@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const { prefix, mongoConnectionStringTemplate } = require('./config.json');
 const mongoConnectionString = mongoConnectionStringTemplate.replace('%%PASSWORD%%', process.env.MONGODB_PW)
-const mongo = new MongoClient(mongoConnectionString, { useNewUrlParser: true });
+const mongo = new MongoClient(mongoConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const discord = new Discord.Client();
 discord.commands = new Discord.Collection();
