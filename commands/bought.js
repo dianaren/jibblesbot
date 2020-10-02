@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+const uuid = require('uuid').v4;
 
 const buyableStuff = {
   'skis': 'have',
