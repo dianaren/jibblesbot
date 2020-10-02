@@ -46,14 +46,18 @@ function handleMessage(message) {
   }
 }
 
-discord.once('ready', () => {
+async function mongoTest() {
   try {
-    mongo.connect();
-    mongo.db("default").command({ ping: 1 });
+    await mongo.connect();
+    await mongo.db("default").command({ ping: 1 });
     console.log("Connected successfully to mongo");
   } finally {
-    mongo.close();
+    await mongo.close();
   }
+}
+
+discord.once('ready', () => {
+  mongoTest();
   console.log('Ready!');
 });
 
