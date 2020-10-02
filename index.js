@@ -12,13 +12,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
-  console.log('Ready!');
-});
-
-client.login(process.env.TOKEN);
-
-client.on('message', message => {
+function handleMessage(message) {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -46,4 +40,16 @@ client.on('message', message => {
     console.error(error);
     message.reply('there was an error trying to execute that command!');
   }
+}
+
+client.once('ready', () => {
+  console.log('Ready!');
 });
+
+client.login(process.env.TOKEN);
+
+client.on('message', handleMessage);
+
+module.exports = {
+  handleMessage: handleMessage
+}
