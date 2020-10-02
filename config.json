@@ -1,4 +1,4 @@
 {
 	"prefix": "!jibbles ",
-  "mongoConnectionString": "mongodb+srv://jibbles:%%PASSWORD%%@jibblesbot.py0vo.mongodb.net/default?retryWrites=true&w=majority"
+  "mongoConnectionStringTemplate": "mongodb+srv://jibbles:%%PASSWORD%%@jibblesbot.py0vo.mongodb.net/default?retryWrites=true&w=majority"
 }
