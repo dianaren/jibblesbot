@@ -1,4 +1,4 @@
-const uuid = require('uuid').v4;
+const uuidv4 = require('uuid').v4;
 
 const buyableStuff = {
   'skis': 'have',
