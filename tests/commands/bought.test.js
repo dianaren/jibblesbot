@@ -17,24 +17,8 @@ const dummyMessage = {
   reply: mockReply
 };
 
-describe('bought skis', () => {
-  const args = ['skis'];
-  beforeEach(() => {
-    mockSend.mockClear();
-    mockSetTopic.mockClear();
-    mockReply.mockClear();
-    bought.execute(dummyMessage, args);
-  });
-  test('it sets the topic once', async () => {
-    expect(dummyMessage.channel.setTopic).toHaveBeenCalledTimes(1);
-  });
-  test('it sends a message once', async () => {
-    expect(dummyMessage.channel.send).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('bought gear', () => {
-  const args = ['gear'];
+describe.each(Object.keys(bought.buyableStuff))('bought %p', (buyableThing) => {
+  const args = [buyableThing];
   beforeEach(() => {
     mockSend.mockClear();
     mockSetTopic.mockClear();

@@ -1,4 +1,4 @@
-const stuff = {
+const buyableStuff = {
   'skis': 'have',
   'gear': 'has'
 }
@@ -10,13 +10,15 @@ module.exports = {
   usage: '<stuff>',
 	execute(message, args) {
     let stuffBought = args[0];
-    if (!stuff[stuffBought]) {
+    if (!buyableStuff[stuffBought]) {
       message.reply(`congrats on your new ${stuffBought} but I'm not tracking that yet!`);
     } else {
       // TODO: retrieve a real value indexed by stuffBought
       let fakeCounter = 0;
-      message.channel.setTopic(`${fakeCounter} day(s) since ${stuffBought} ${stuff[stuffBought]} been bought! Last one to buy ${stuffBought}: ${message.author.username}`)
+      message.channel.setTopic(`${fakeCounter} day(s) since ${stuffBought} ${buyableStuff[stuffBought]} been bought! Last one to buy ${stuffBought}: ${message.author.username}`)
         .then(updated => message.channel.send(`SPENT IT! ${message.author.username} bought skis! The channel topic has been updated.`));
     }
 	},
 };
+
+module.exports.buyableStuff = buyableStuff;
