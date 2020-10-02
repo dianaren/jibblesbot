@@ -35,8 +35,8 @@ async function updateGlobalStats(username, collection) {
 
 function updateMongoPurchases(stuffBought, username, mongo) {
   const collection = mongo.db('default').collection(stuffBought);
-  addNewPurchase(username, collection);
-  updateGlobalStats(username, collection);
+  // TODO: these can fail independently of each other. make them atomic
+  addNewPurchase(username, collection).then(updateGlobalStats(username, collection));
 }
 
 module.exports = {
