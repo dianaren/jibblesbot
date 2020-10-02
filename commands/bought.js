@@ -1,26 +1,43 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const buyableStuff = {
   'skis': 'have',
   'gear': 'has'
 }
 
-function addNewPurchase(username, collection) {
-  const purchaseDocument = {
-    username: username,
-    $setOnInsert: { dateAdded: new Date() }
+async function addNewPurchase(username, collection) {
+  const uuid = uuidv4();
+  const update = {
+    $set: {
+      uuid: uuid,
+      username: username,
+    },
+    $currentDate: {
+        lastModified: true,
+        'purchaseTime': { $type: 'timestamp' }
+     }
   };
-  collection.insertOne(purchaseDocument);
+  await collection.updateOne({ uuid: uuid }, update, { upsert: true });
 }
 
-function updateLastPurchasedBy(username, collection) {
+async function updateLastPurchasedBy(username, collection) {
   const query = { lastPurchasedBy: { $exists: true } };
-  const update = { lastPurchasedBy: username };
-  collection.updateOne(query, update, { upsert: true });
+  const update = {
+    $set: {
+      lastPurchasedBy: username
+    }
+  };
+  await collection.updateOne(query, update, { upsert: true });
 }
 
-function updateTotalPurchased(collection) {
+async function updateTotalPurchased(collection) {
   const query = { totalPurchased: { $exists: true } };
-  const update = { $inc: { totalPurchased: 1 } };
-  collection.updateOne(query, update, { upsert: true });
+  const update = {
+    $inc: {
+      totalPurchased: 1
+    }
+  };
+  await collection.updateOne(query, update, { upsert: true });
 }
 
 function updateMongoPurchases(stuffBought, username, mongo) {
